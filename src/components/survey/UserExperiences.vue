@@ -8,7 +8,10 @@
         >
       </div>
       <p v-if="loading">Loading...</p>
-      <ul v-else>
+      <p v-else-if="!loading && surveyResults.length === 0">
+        No stored experiences found. Start adding some survey results.
+      </p>
+      <ul v-else-if="!loading && surveyResults.length > 0">
         <survey-result
           v-for="result in surveyResults"
           :key="result.id"
