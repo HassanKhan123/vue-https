@@ -51,6 +51,9 @@ export default {
         });
     },
   },
+  mounted() {
+    this.loadExperiences();
+  },
 };
 </script>
 
