@@ -7,7 +7,8 @@
           >Load Submitted Experiences</base-button
         >
       </div>
-      <ul>
+      <p v-if="loading">Loading...</p>
+      <ul v-else>
         <survey-result
           v-for="result in surveyResults"
           :key="result.id"
@@ -26,6 +27,7 @@ export default {
   data() {
     return {
       surveyResults: [],
+      loading: false,
     };
   },
   components: {
@@ -33,6 +35,7 @@ export default {
   },
   methods: {
     loadExperiences() {
+      this.loading = true;
       fetch('https://vue-http-50019.firebaseio.com/surveys.json')
         .then((res) => {
           if (res.ok) {
@@ -45,9 +48,11 @@ export default {
             results.push({ id, name: data[id].name, rating: data[id].rating });
           }
           this.surveyResults = results;
+          this.loading = false;
         })
         .catch((err) => {
           console.log(err);
+          this.loading = false;
         });
     },
   },
